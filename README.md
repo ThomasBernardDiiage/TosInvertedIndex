@@ -10,13 +10,13 @@ SELECT * FROM t WHERE description LIKE ‘%nicolas%’;
 
 L'index inversé améliore drastiquement la recherche de chaînes de caractères dans des bases de données. Les requêtes traditionnelles, comme LIKE '%nicolas%', sont coûteuses en temps et ressources, car elles ne tirent pas parti des index classiques de la base de données. En revanche, l'indexation full-text divise le contenu en mots individuels et associe chaque mot à ses occurrences dans les documents. Une fois le contenu indexé, la recherche devient extrêmement rapide, offrant d'énormes gains de performance, surtout avec de grands volumes de données.
 
-## Téléchargement de l'image Docker de Solr
+## Création du container Docker de Solr
 
 ```shell
 docker run -p 8983:8983 -t solr
 ```
 
-On peut voir notre Solr tourner à l'addresse :
+On peut voir notre Solr tourner à l'adresse :
 `http://localhost:8983/solr/`
 
 Il faut maintenant créer un core ou stocker nos données : 
@@ -48,7 +48,7 @@ services.AddScoped<TrackSolrRepository>();
 
 ## Couche repository
 
-Notre couche repository nous permettra d'insérér des données dans notre core
+Notre couche repository nous permettra d'insérer des données dans notre core
 
 ```csharp
 public class TrackSolrRepository
@@ -76,20 +76,20 @@ Dans notre interface on peut voir les données de notre core :
 
 ![Alt text](image.png)
 
-## Requetage
+## Requêtage
 
-Il y'a plusieurs moyens d'interoger notre index inversé. 
+Il y'a plusieurs moyens d'interroger notre index inversé. 
 
 ### Interface graphique
 
-L'interface graphique nous permet de requeter notre index inversé avec plusieurs filtres : 
+L'interface graphique nous permet de requêter notre index inversé avec plusieurs filtres : 
  - q : La query  principale
  - fq : Filtre permettant d'enregistrer des résultats en cache
 
 
 ### Code
 
-On peut intéroger notre index inversé en utilisant le SDK de solr : 
+On peut interroger notre index inversé en utilisant le SDK de solr : 
 
 ```csharp
 var solrResult = _solr.Query(new SolrQueryByField("name", $"name_str:*{"nicolas".Replace(' ', '*')}*"));
@@ -102,4 +102,4 @@ Voilà pour la mise en place de Solr, ce tuto n'est qu'une
 façon de faire parmis tant d'autre. Il est déconseillé de reproduire ce tutoriel en l'absence d'un adulte responsable.
 
 
-> :warning: **Attention**: L'utilisation de TOS créra une dette de 1 Kinder Bueno White
+> :warning: **Attention**: L'utilisation de TOS créera une dette de 1 Kinder Bueno White
